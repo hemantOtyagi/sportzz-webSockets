@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createMatchSchema,
   listMatchesQuerySchema,
+  MATCH_STATUS
 } from "../validation/matches.js";
 import { db } from "../db/db.js";
 import { matches } from "../db/schema.js";
@@ -16,7 +17,7 @@ matchRouter.get("/", async (req, res) => {
   if (!parsedData.success) {
     res.status(400).json({
       error: "Invalid Query",
-      details: JSON.stringify(parsedData.error),
+      details: JSON.stringify(parsedData.error.issues),
     });
   }
 
